@@ -2,6 +2,10 @@
 
 **仿王者荣耀生日福利系统** - Minecraft 1.21.1 插件
 
+[![GitHub](https://img.shields.io/github/license/GalaxyPoke/PlayerBirthdayPerks)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-17+-orange)](https://www.oracle.com/java/)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-green)](https://www.minecraft.net/)
+
 ## 📖 简介
 
 PlayerBirthdayPerks 是一个仿照王者荣耀生日福利系统设计的 Minecraft 插件。玩家可以设置自己的生日，在生日当天登录服务器获得专属福利奖励！
@@ -10,18 +14,27 @@ PlayerBirthdayPerks 是一个仿照王者荣耀生日福利系统设计的 Minec
 
 ### 核心功能
 - 🎂 **生日设置**：支持年月日完整生日设置，带GUI选择器
-- 🎁 **生日福利**：生日当天可领取专属福利
-- 📢 **全服广播**：生日当天登录时全服庆祝
+- 🎁 **生日福利**：生日当天可领取专属福利（支持命令发放物品，兼容模组）
+- 📢 **全服广播**：生日当天登录时全服庆祝（支持Title）
 - 🎆 **烟花效果**：领取福利时释放绚丽烟花
+- 💖 **粒子特效**：生日当天玩家周围显示粒子环绕
 - 🖼️ **头像框系统**：获得限时生日专属头像框
-- 🖥️ **GUI界面**：美观的图形界面操作
+- 🖥️ **可配置GUI**：所有界面均可通过YAML配置自定义
+- 📋 **生日排行榜**：查看即将过生日的玩家列表
+- 🌐 **多语言支持**：内置中英文，支持自定义语言
 
 ### 奖励类型
-- 自定义物品奖励（支持自定义名称和Lore）
+- 命令奖励（支持原版/模组物品、经济、权限等）
 - 经验值奖励
 - 金钱奖励（需要Vault支持）
-- 命令执行奖励
+- 烟花效果
 - 音效效果
+- 头像框
+
+### 集成支持
+- 🔌 **PlaceholderAPI**：提供丰富的占位符
+- 💰 **Vault**：金钱奖励支持
+- 🎮 **模组兼容**：通过命令支持模组物品
 
 ### 技术特性
 - ⚡ **高性能**：HikariCP 连接池 + 异步数据库操作
@@ -29,7 +42,7 @@ PlayerBirthdayPerks 是一个仿照王者荣耀生日福利系统设计的 Minec
 - 🔒 **安全可靠**：参数化查询防SQL注入
 - 📦 **智能缓存**：减少数据库压力
 - 🎨 **完整配置**：所有功能均可配置
-- 📱 **轻量级**：仅 ~95KB，不打包冗余依赖
+- 📱 **轻量级**：不打包冗余依赖
 
 ## 📋 命令
 
@@ -43,6 +56,7 @@ PlayerBirthdayPerks 是一个仿照王者荣耀生日福利系统设计的 Minec
 | `/pbp set <年> <月> <日>` | 命令行设置生日 | `birthday.set` |
 | `/pbp info` | 查看生日信息 | `birthday.info` |
 | `/pbp claim` | 领取生日福利 | `birthday.claim` |
+| `/pbp list [天数]` | 查看即将过生日的玩家 | `birthday.list` |
 | `/pbp help` | 显示帮助信息 | `birthday.use` |
 
 ### 管理员命令
@@ -63,58 +77,86 @@ PlayerBirthdayPerks 是一个仿照王者荣耀生日福利系统设计的 Minec
 | `birthday.set` | 设置生日 | 所有人 |
 | `birthday.info` | 查看信息 | 所有人 |
 | `birthday.claim` | 领取福利 | 所有人 |
+| `birthday.list` | 查看生日列表 | 所有人 |
 | `birthday.admin` | 管理员权限 | OP |
 | `birthday.admin.reload` | 重载配置 | OP |
 | `birthday.admin.reset` | 重置数据 | OP |
 | `birthday.admin.give` | 给予福利 | OP |
 | `birthday.admin.check` | 查看他人 | OP |
 
+## 🔌 PlaceholderAPI 占位符
+
+需要安装 [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) 插件
+
+| 占位符 | 描述 |
+|--------|------|
+| `%birthday_date%` | 生日日期 (MM月dd日) |
+| `%birthday_date_full%` | 完整日期 (yyyy年MM月dd日) |
+| `%birthday_age%` | 年龄 |
+| `%birthday_days_until%` | 距离生日天数 |
+| `%birthday_is_today%` | 是否今天生日 (true/false) |
+| `%birthday_claimed%` | 是否已领取 (true/false) |
+| `%birthday_claimed_status%` | 领取状态 (已领取/未领取) |
+| `%birthday_zodiac%` | 星座 |
+| `%birthday_status%` | 状态文本 |
+| `%birthday_has_frame%` | 是否有头像框 |
+| `%birthday_frame_prefix%` | 头像框前缀 |
+
 ## ⚙️ 配置
 
-### config.yml 主要配置
+### 配置文件结构
+
+```
+plugins/PlayerBirthdayPerks/
+├── config.yml          # 基础配置
+├── messages.yml        # 中文消息
+├── rewards.yml         # 奖励配置
+├── lang/
+│   └── en_US.yml       # 英文语言
+└── menu/               # GUI配置
+    ├── main-menu.yml
+    ├── reward-preview.yml
+    ├── set-birthday.yml
+    ├── birthday-info.yml
+    └── help.yml
+```
+
+### rewards.yml 奖励配置
+
+所有物品奖励通过命令发放，支持原版和模组物品：
 
 ```yaml
-# 数据库配置
-database:
-  type: sqlite  # sqlite 或 mysql
+commands:
+  # 原版物品
+  item-cake:
+    enabled: true
+    command: "give %player% minecraft:cake 1"
+    delay: 0
   
-# 生日设置
-birthday:
-  allow-modify: false      # 是否允许修改生日
-  modify-limit-per-year: 1 # 每年修改次数限制
-  claim-window-days: 7     # 福利领取窗口期
+  # 模组物品
+  mod-item:
+    enabled: true
+    command: "give %player% modid:item_name 1"
+    delay: 0
+  
+  # 带NBT的物品
+  enchanted-sword:
+    enabled: true
+    command: "give %player% minecraft:diamond_sword{Enchantments:[{id:sharpness,lvl:5}]} 1"
+    delay: 0
+  
+  # 经济奖励
+  eco-reward:
+    enabled: false
+    command: "eco give %player% 1000"
+    delay: 0
 
-# 福利配置
-rewards:
+# 粒子效果
+particle:
   enabled: true
-  login-notification: true
-  broadcast:
-    enabled: true
-  firework:
-    enabled: true
-    amount: 3
-```
-
-### 自定义物品奖励
-
-```yaml
-rewards:
-  items:
-    - material: CAKE
-      amount: 1
-      name: "&d&l🎂 生日蛋糕"
-      lore:
-        - "&7专属于你的生日蛋糕"
-        - "&8获得时间: %date%"
-```
-
-### 命令奖励
-
-```yaml
-rewards:
-  commands:
-    - "give %player% minecraft:diamond 5"
-    - "eco give %player% 1000"
+  type: HEART
+  count: 5
+  radius: 1.5
 ```
 
 ## 🛠️ 安装
@@ -194,6 +236,16 @@ PlayerBirthdayPerks/
 
 ## 📝 更新日志
 
+### v1.1.0
+- ✨ 新增 PlaceholderAPI 支持（丰富的占位符）
+- ✨ 新增生日排行榜功能 (`/pbp list`)
+- ✨ 新增生日粒子效果（可配置）
+- ✨ 新增多语言支持（中文/英文）
+- ✨ 新增可配置GUI系统（menu文件夹）
+- 🔧 奖励配置独立到 `rewards.yml`
+- 🔧 物品奖励改为命令发放，支持模组物品
+- 🔧 优化代码结构
+
 ### v1.0.0
 - 初始版本发布
 - 完整的生日福利系统（支持年月日设置）
@@ -201,7 +253,6 @@ PlayerBirthdayPerks/
 - SQLite 和 MySQL 双数据库支持
 - 高性能异步操作
 - 完善的配置系统
-- 轻量级打包（~95KB）
 
 ## 📄 许可证
 
@@ -210,3 +261,8 @@ MIT License
 ## 🤝 贡献
 
 欢迎提交 Issue 和 Pull Request！
+
+## 🔗 链接
+
+- [GitHub](https://github.com/GalaxyPoke/PlayerBirthdayPerks)
+- [Issues](https://github.com/GalaxyPoke/PlayerBirthdayPerks/issues)
