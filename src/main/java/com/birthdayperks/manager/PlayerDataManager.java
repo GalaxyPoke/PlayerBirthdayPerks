@@ -68,6 +68,20 @@ public class PlayerDataManager {
         return plugin.getDatabase().deletePlayerData(uuid);
     }
 
+    /**
+     * 同步获取玩家数据（用于PlaceholderAPI）
+     * 优先从缓存获取，缓存未命中则返回null
+     */
+    public PlayerData getPlayerDataSync(UUID uuid) {
+        CacheEntry cached = cache.get(uuid);
+        if (cached != null && !cached.isExpired()) {
+            return cached.getData();
+        }
+        // 异步加载数据到缓存
+        getPlayerData(uuid);
+        return null;
+    }
+
     private void cachePlayerData(UUID uuid, PlayerData data) {
         // 检查缓存大小
         if (cache.size() >= maxCacheSize) {

@@ -47,6 +47,7 @@ public class BirthdayCommand implements CommandExecutor {
             case "set" -> handleSet(sender, args);
             case "info" -> handleInfo(sender, args);
             case "claim" -> handleClaim(sender, args);
+            case "list" -> handleList(sender, args);
             case "admin" -> handleAdmin(sender, args);
             case "help" -> {
                 showHelp(sender);
@@ -281,6 +282,58 @@ public class BirthdayCommand implements CommandExecutor {
                         });
                     });
                 });
+
+        return true;
+    }
+
+    private boolean handleList(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("birthday.list")) {
+            messageManager.send(sender, "general.no-permission");
+            return true;
+        }
+
+        // 默认显示未来7天内过生日的玩家
+        int days = 7;
+        if (args.length >= 2) {
+            try {
+                days = Integer.parseInt(args[1]);
+                days = Math.min(Math.max(days, 1), 365); // 限制1-365天
+            } catch (NumberFormatException ignored) {}
+        }
+
+        final int queryDays = days;
+        plugin.getDatabase().getUpcomingBirthdays(days).thenAccept(players -> {
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                if (players.isEmpty()) {
+                    messageManager.send(sender, "list.no-upcoming", 
+                            Map.of("days", String.valueOf(queryDays)));
+                    return;
+                }
+
+                messageManager.sendRaw(sender, "list.header", 
+                        Map.of("days", String.valueOf(queryDays), "count", String.valueOf(players.size())));
+
+                for (int i = 0; i < Math.min(players.size(), 10); i++) {
+                    var data = players.get(i);
+                    long daysUntil = data.getDaysUntilBirthday();
+                    String status = daysUntil == 0 ? "&a今天生日！" : "&7" + daysUntil + "天后";
+                    String date = data.getBirthDate().getMonthValue() + "月" + data.getBirthDate().getDayOfMonth() + "日";
+                    
+                    messageManager.sendRaw(sender, "list.entry",
+                            Map.of("rank", String.valueOf(i + 1),
+                                    "player", data.getPlayerName() != null ? data.getPlayerName() : "未知",
+                                    "date", date,
+                                    "status", status));
+                }
+
+                if (players.size() > 10) {
+                    messageManager.sendRaw(sender, "list.more",
+                            Map.of("count", String.valueOf(players.size() - 10)));
+                }
+
+                messageManager.sendRaw(sender, "list.footer");
+            });
+        });
 
         return true;
     }

@@ -156,3 +156,17 @@ avatar-frame:
   duration-days: 30
   # 聊天前缀
   prefix: "&6🎂&r "
+
+# 生日粒子效果 (生日当天玩家周围显示粒子)
+particle:
+  enabled: true
+  # 粒子类型: HEART, VILLAGER_HAPPY, NOTE, FLAME, SPELL_MOB, END_ROD, TOTEM
+  type: HEART
+  # 粒子数量
+  count: 5
+  # 粒子半径
+  radius: 1.5
+  # 刷新间隔 (tick, 20tick=1秒)
+  interval: 10
+  # 持续时间 (秒, -1为整天)
+  duration: -1

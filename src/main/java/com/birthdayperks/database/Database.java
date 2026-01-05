@@ -52,4 +52,14 @@ public interface Database {
      * 获取数据库类型名称
      */
     String getDatabaseType();
+
+    /**
+     * 获取即将过生日的玩家列表（未来N天内）
+     */
+    CompletableFuture<List<PlayerData>> getUpcomingBirthdays(int days);
+
+    /**
+     * 获取所有已设置生日的玩家数据
+     */
+    CompletableFuture<List<PlayerData>> getAllPlayersWithBirthday();
 }

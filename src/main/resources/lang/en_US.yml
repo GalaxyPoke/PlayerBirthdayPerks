@@ -1,0 +1,104 @@
+# ================================
+# PlayerBirthdayPerks English Language File
+# ================================
+
+prefix: "&6[Birthday] &r"
+
+general:
+  no-permission: "&cYou don't have permission to do this!"
+  player-only: "&cThis command can only be executed by players!"
+  player-not-found: "&cPlayer not found: &e%player%"
+  reload-success: "&aConfiguration reloaded!"
+  invalid-args: "&cInvalid arguments! Use &e/pbp help &cfor help."
+
+help:
+  header: "&6&m━━━━━━━━━━&r &e&lBirthday Perks &6&m━━━━━━━━━━"
+  footer: "&6&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  commands:
+    - "&e/pbp &7- Open birthday GUI"
+    - "&e/pbp set <year> <month> <day> &7- Set your birthday"
+    - "&e/pbp info &7- View your birthday info"
+    - "&e/pbp claim &7- Claim birthday rewards"
+    - "&e/pbp list [days] &7- View upcoming birthdays"
+    - "&e/pbp help &7- Show this help"
+  admin-commands:
+    - "&c&lAdmin Commands:"
+    - "&e/pbp admin gui &7- Open admin panel"
+    - "&e/pbp admin reload &7- Reload config"
+    - "&e/pbp admin reset <player> &7- Reset player birthday"
+    - "&e/pbp admin give <player> &7- Give player rewards"
+    - "&e/pbp admin check <player> &7- Check player info"
+
+birthday-set:
+  success: "&a🎂 Your birthday has been set to: &e%month%/%day%/%year%"
+  already-set: "&cYou have already set your birthday! Cannot modify."
+  modify-limit: "&cYou've reached the modification limit this year!"
+  invalid-date: "&cInvalid date! Please enter a valid month (1-12) and day."
+  invalid-format: "&cInvalid format! Use: &e/pbp set <year> <month> <day>"
+
+birthday-info:
+  header: "&6&m━━━━━━━━&r &e&lYour Birthday Info &6&m━━━━━━━━"
+  not-set: "&7You haven't set your birthday. Use &e/pbp &7to open the GUI."
+  date: "&7Birthday: &e%month%/%day%/%year%"
+  age: "&7Age: &e%age% years old"
+  days-until: "&7Days until birthday: &e%days%"
+  today: "&a&l🎉 Today is your birthday!"
+  claimed-this-year: "&7This year's reward: &aClaimed"
+  not-claimed: "&7This year's reward: &eNot claimed &7(Use &e/pbp claim&7)"
+  claim-expired: "&7This year's reward: &cExpired"
+  modify-count: "&7Modifications remaining: &e%count%"
+  footer: "&6&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+reward:
+  not-birthday: "&cToday is not your birthday!"
+  already-claimed: "&cYou have already claimed this year's reward!"
+  expired: "&cThe claim period has expired!"
+  no-birthday-set: "&cYou haven't set your birthday! Use &e/pbp &cto set it."
+  inventory-full: "&cYour inventory is full! Please clear it first."
+  success:
+    - "&6&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    - "&e&l  🎂 Happy Birthday! 🎂"
+    - ""
+    - "&7You have claimed your birthday rewards!"
+    - "&7Wishing you a wonderful year ahead!"
+    - ""
+    - "&6&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+reminder:
+  login:
+    - "&6&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    - "&e&l  🎂 Happy Birthday! 🎂"
+    - ""
+    - "&7Today is your birthday!"
+    - "&7Use &e/pbp claim &7to get your rewards!"
+    - ""
+    - "&6&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  upcoming: "&6🎂 Your birthday is in &e%days% &6days!"
+
+admin:
+  reset-success: "&aReset birthday data for &e%player%&a!"
+  reset-claim-success: "&aReset claim status for &e%player%&a!"
+  give-success: "&aGave birthday rewards to &e%player%&a!"
+  give-failed: "&cFailed to give rewards. Player may be offline or inventory full."
+  no-birthday-today: "&7No players have birthdays today."
+  check:
+    header: "&6&m━━━━━━━━&r &e&lPlayer Birthday Info &6&m━━━━━━━━"
+    player: "&7Player: &e%player%"
+    not-set: "&7This player hasn't set their birthday"
+    date: "&7Birthday: &e%month%/%day%/%year%"
+    age: "&7Age: &e%age% years old"
+    claimed: "&7Claimed this year: &e%status%"
+    last-claim: "&7Last claim: &e%date%"
+    footer: "&6&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+avatar-frame:
+  granted: "&a🎂 You received a birthday avatar frame! Duration: &e%days% days"
+  expired: "&7Your birthday avatar frame has expired."
+
+list:
+  header: "&6&m━━━━━━━━&r &e&lUpcoming Birthdays &6&m━━━━━━━━"
+  subheader: "&7%count% players have birthdays in the next &e%days% &7days"
+  no-upcoming: "&7No players have birthdays in the next &e%days% &7days"
+  entry: "&e%rank%. &f%player% &7- &e%date% &7(%status%&7)"
+  more: "&7And &e%count% &7more..."
+  footer: "&6&m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

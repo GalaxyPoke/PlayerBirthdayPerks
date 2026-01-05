@@ -11,6 +11,7 @@ import com.birthdayperks.manager.MenuManager;
 import com.birthdayperks.manager.MessageManager;
 import com.birthdayperks.manager.PlayerDataManager;
 import com.birthdayperks.manager.RewardManager;
+import com.birthdayperks.task.BirthdayParticleTask;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,6 +28,7 @@ public final class PlayerBirthdayPerks extends JavaPlugin {
     private PlayerDataManager playerDataManager;
     private RewardManager rewardManager;
     private GuiManager guiManager;
+    private BirthdayParticleTask particleTask;
 
     @Override
     public void onEnable() {
@@ -64,13 +66,26 @@ public final class PlayerBirthdayPerks extends JavaPlugin {
         // 初始化GUI管理器
         this.guiManager = new GuiManager(this);
         
+        // 初始化粒子任务管理器
+        this.particleTask = new BirthdayParticleTask(this);
+        
         // 注册命令
         registerCommands();
         
         // 注册事件监听器
         registerListeners();
         
+        // 注册PlaceholderAPI扩展
+        registerPlaceholderAPI();
+        
         log(Level.INFO, "PlayerBirthdayPerks v" + getDescription().getVersion() + " 已启用！");
+    }
+
+    private void registerPlaceholderAPI() {
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new com.birthdayperks.hook.PlaceholderAPIHook(this).register();
+            log(Level.INFO, "已注册PlaceholderAPI扩展！");
+        }
     }
 
     @Override
@@ -149,5 +164,9 @@ public final class PlayerBirthdayPerks extends JavaPlugin {
 
     public MenuManager getMenuManager() {
         return menuManager;
+    }
+
+    public BirthdayParticleTask getParticleTask() {
+        return particleTask;
     }
 }

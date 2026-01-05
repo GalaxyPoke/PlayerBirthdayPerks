@@ -91,6 +91,9 @@ public class PlayerJoinListener implements Listener {
             message = message.replace("%player%", player.getName());
             Bukkit.broadcastMessage(com.birthdayperks.util.ColorUtil.colorize(message));
         }
+
+        // 启动生日粒子效果
+        plugin.getParticleTask().startParticles(player);
     }
 
     private void checkAvatarFrameExpiry(Player player, PlayerData data) {

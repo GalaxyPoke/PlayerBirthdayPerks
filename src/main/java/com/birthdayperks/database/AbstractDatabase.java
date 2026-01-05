@@ -236,6 +236,59 @@ public abstract class AbstractDatabase implements Database {
         });
     }
 
+    @Override
+    public CompletableFuture<List<PlayerData>> getUpcomingBirthdays(int days) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<PlayerData> players = new ArrayList<>();
+            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE birthday_month IS NOT NULL AND birthday_day IS NOT NULL";
+
+            try (Connection conn = dataSource.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                LocalDate today = LocalDate.now();
+                while (rs.next()) {
+                    PlayerData data = parsePlayerData(rs);
+                    if (data.hasBirthdaySet()) {
+                        long daysUntil = data.getDaysUntilBirthday();
+                        if (daysUntil >= 0 && daysUntil <= days) {
+                            players.add(data);
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                plugin.log(Level.SEVERE, "获取即将过生日玩家列表失败: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
+
+            // 按距离生日天数排序
+            players.sort((a, b) -> Long.compare(a.getDaysUntilBirthday(), b.getDaysUntilBirthday()));
+            return players;
+        });
+    }
+
+    @Override
+    public CompletableFuture<List<PlayerData>> getAllPlayersWithBirthday() {
+        return CompletableFuture.supplyAsync(() -> {
+            List<PlayerData> players = new ArrayList<>();
+            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE birthday_month IS NOT NULL AND birthday_day IS NOT NULL";
+
+            try (Connection conn = dataSource.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    players.add(parsePlayerData(rs));
+                }
+            } catch (SQLException e) {
+                plugin.log(Level.SEVERE, "获取所有玩家生日数据失败: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
+
+            return players;
+        });
+    }
+
     protected PlayerData parsePlayerData(ResultSet rs) throws SQLException {
         UUID uuid = UUID.fromString(rs.getString("uuid"));
         String playerName = rs.getString("player_name");
