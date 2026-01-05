@@ -1,0 +1,111 @@
+# ================================
+# 福利预览 GUI 配置
+# ================================
+
+title: "&d&l🎁 福利预览"
+rows: 5
+
+fill:
+  border:
+    enabled: true
+    material: MAGENTA_STAINED_GLASS_PANE
+    name: " "
+  empty:
+    enabled: true
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+
+items:
+  # 标题物品
+  title:
+    slot: 4
+    material: NETHER_STAR
+    name: "&6&l生日福利内容"
+    lore:
+      - "&7以下是生日当天可获得的福利"
+      - ""
+      - "&7设置生日后，在生日当天"
+      - "&7登录服务器即可领取！"
+
+  # 物品奖励预览
+  item-reward:
+    slot: 19
+    material: CHEST
+    name: "&e&l📦 物品奖励"
+    lore:
+      - "&7包含以下物品:"
+      - ""
+      - "%reward_items%"
+    # 仅当有物品奖励时显示
+    show-condition: "has_item_rewards"
+
+  # 经验奖励
+  exp-reward:
+    slot: 20
+    material: EXPERIENCE_BOTTLE
+    name: "&a&l✨ 经验奖励"
+    lore:
+      - "&7获得经验值:"
+      - "&e%exp_amount% 点经验"
+    show-condition: "exp_enabled"
+
+  # 金钱奖励
+  money-reward:
+    slot: 21
+    material: GOLD_INGOT
+    name: "&6&l💰 金钱奖励"
+    lore:
+      - "&7获得金钱:"
+      - "&e%money_amount% 元"
+    show-condition: "money_enabled"
+
+  # 烟花效果
+  firework-reward:
+    slot: 22
+    material: FIREWORK_ROCKET
+    name: "&c&l🎆 烟花庆祝"
+    lore:
+      - "&7释放庆祝烟花:"
+      - "&e%firework_amount% 发烟花"
+    show-condition: "firework_enabled"
+
+  # 全服广播
+  broadcast-reward:
+    slot: 23
+    material: BELL
+    name: "&b&l📢 全服广播"
+    lore:
+      - "&7生日当天登录时"
+      - "&7全服玩家都会收到祝福！"
+    show-condition: "broadcast_enabled"
+
+  # 头像框
+  avatar-frame-reward:
+    slot: 24
+    material: PAINTING
+    name: "&d&l🖼️ 专属头像框"
+    lore:
+      - "&7获得生日专属头像框"
+      - "&7有效期: &e%avatar_duration%"
+    show-condition: "avatar_frame_enabled"
+
+  # 特殊奖励 (命令奖励)
+  special-reward:
+    slot: 25
+    material: COMMAND_BLOCK
+    name: "&5&l⚡ 特殊奖励"
+    lore:
+      - "&7还有更多惊喜奖励"
+      - "&7等你来发现！"
+    show-condition: "has_command_rewards"
+
+  # 返回按钮
+  back:
+    slot: 36
+    material: ARROW
+    name: "&7&l← 返回主菜单"
+    lore:
+      - "&7点击返回"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] main-menu"

@@ -10,22 +10,18 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
-import java.util.logging.Level;
 
 public class RewardManager {
 
@@ -106,80 +102,6 @@ public class RewardManager {
                 return false;
             }
         });
-    }
-
-    private void giveItemRewards(Player player) {
-        // 优先从 menu/rewards.yml 加载物品配置
-        FileConfiguration rewardsConfig = plugin.getMenuManager().getMenuConfig("rewards");
-        List<Map<?, ?>> items;
-        
-        if (rewardsConfig != null && rewardsConfig.getConfigurationSection("items") != null) {
-            // 从 rewards.yml 的 items section 加载
-            items = new ArrayList<>();
-            ConfigurationSection itemsSection = rewardsConfig.getConfigurationSection("items");
-            for (String key : itemsSection.getKeys(false)) {
-                ConfigurationSection itemSection = itemsSection.getConfigurationSection(key);
-                if (itemSection != null) {
-                    java.util.HashMap<String, Object> itemMap = new java.util.HashMap<>();
-                    itemMap.put("material", itemSection.getString("material"));
-                    itemMap.put("amount", itemSection.getInt("amount", 1));
-                    if (itemSection.contains("name")) itemMap.put("name", itemSection.getString("name"));
-                    if (itemSection.contains("lore")) itemMap.put("lore", itemSection.getStringList("lore"));
-                    items.add(itemMap);
-                }
-            }
-        } else {
-            // 回退到 config.yml
-            items = plugin.getConfig().getMapList("rewards.items");
-        }
-        
-        for (Map<?, ?> itemConfig : items) {
-            try {
-                String materialName = (String) itemConfig.get("material");
-                Material material = Material.valueOf(materialName.toUpperCase());
-                int amount = itemConfig.containsKey("amount") ? ((Number) itemConfig.get("amount")).intValue() : 1;
-
-                ItemStack item = new ItemStack(material, amount);
-                ItemMeta meta = item.getItemMeta();
-
-                if (meta != null) {
-                    // 设置名称
-                    if (itemConfig.containsKey("name")) {
-                        String name = ColorUtil.colorize((String) itemConfig.get("name"));
-                        meta.setDisplayName(name);
-                    }
-
-                    // 设置Lore
-                    if (itemConfig.containsKey("lore")) {
-                        @SuppressWarnings("unchecked")
-                        List<String> loreList = (List<String>) itemConfig.get("lore");
-                        List<String> coloredLore = new ArrayList<>();
-                        String dateStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        
-                        for (String line : loreList) {
-                            String coloredLine = ColorUtil.colorize(line);
-                            coloredLine = coloredLine.replace("%date%", dateStr);
-                            coloredLine = coloredLine.replace("%player%", player.getName());
-                            coloredLore.add(coloredLine);
-                        }
-                        meta.setLore(coloredLore);
-                    }
-
-                    item.setItemMeta(meta);
-                }
-
-                // 给予物品，如果背包满则掉落
-                if (player.getInventory().firstEmpty() == -1) {
-                    player.getWorld().dropItemNaturally(player.getLocation(), item);
-                } else {
-                    player.getInventory().addItem(item);
-                }
-
-                plugin.debug("给予玩家 " + player.getName() + " 物品: " + materialName + " x" + amount);
-            } catch (Exception e) {
-                plugin.getLogger().warning("给予物品奖励失败: " + e.getMessage());
-            }
-        }
     }
 
     private void executeCommandRewards(Player player) {

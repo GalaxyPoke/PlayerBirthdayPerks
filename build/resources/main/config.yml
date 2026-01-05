@@ -40,72 +40,9 @@ birthday:
 rewards:
   # 是否启用福利系统
   enabled: true
-  
   # 生日当天登录提醒
   login-notification: true
-  
-  # 全服广播生日祝福
-  broadcast:
-    enabled: true
-    message: "&6&l🎂 今天是 &e%player% &6&l的生日！让我们一起祝TA生日快乐！🎉"
-  
-  # 烟花效果
-  firework:
-    enabled: true
-    amount: 3
-    delay-ticks: 20
-  
-  # 音效
-  sound:
-    enabled: true
-    type: UI_TOAST_CHALLENGE_COMPLETE
-    volume: 1.0
-    pitch: 1.0
-  
-  # 物品奖励
-  items:
-    - material: CAKE
-      amount: 1
-      name: "&d&l🎂 生日蛋糕"
-      lore:
-        - "&7专属于你的生日蛋糕"
-        - "&7祝你生日快乐！"
-        - ""
-        - "&8获得时间: %date%"
-    - material: DIAMOND
-      amount: 5
-      name: "&b&l💎 生日钻石"
-      lore:
-        - "&7生日专属奖励"
-    - material: EXPERIENCE_BOTTLE
-      amount: 16
-      name: "&a&l✨ 生日经验瓶"
-      lore:
-        - "&7生日快乐！"
-  
-  # 执行命令奖励 (以控制台身份执行)
-  commands:
-    - "give %player% minecraft:firework_rocket{Fireworks:{Flight:2}} 8"
-    # - "eco give %player% 1000"
-    # - "lp user %player% permission settemp birthday.vip true 1d"
-  
-  # 经验奖励
-  experience:
-    enabled: true
-    amount: 500
-  
-  # 金钱奖励 (需要Vault支持)
-  money:
-    enabled: false
-    amount: 1000.0
-
-# 头像框系统 (模拟)
-avatar-frame:
-  enabled: true
-  # 头像框持续时间 (天数, -1为永久)
-  duration-days: 30
-  # 头像框名称 (用于聊天前缀等)
-  prefix: "&6🎂&r "
+  # 详细奖励配置请查看 menu/rewards.yml
 
 # 缓存配置
 cache:

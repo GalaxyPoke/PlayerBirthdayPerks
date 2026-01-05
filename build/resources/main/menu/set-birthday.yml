@@ -1,0 +1,162 @@
+# ================================
+# 设置生日 GUI 配置
+# ================================
+
+title: "&e&l📅 设置生日"
+rows: 6
+
+fill:
+  border:
+    enabled: true
+    material: YELLOW_STAINED_GLASS_PANE
+    name: " "
+  empty:
+    enabled: true
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+
+items:
+  # 年份显示
+  year-display:
+    slot: 4
+    material: CLOCK
+    name: "&6&l选择年份"
+    lore:
+      - "&7当前: &e%selected_year% 年"
+      - ""
+      - "&7使用下方按钮调整"
+
+  # 年份减少
+  year-decrease:
+    slot: 12
+    material: RED_STAINED_GLASS_PANE
+    name: "&c&l◀ 减少年份"
+    lore:
+      - "&7点击 -1 年"
+      - "&7Shift+点击 -10 年"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[YEAR_DECREASE]"
+
+  # 年份增加
+  year-increase:
+    slot: 14
+    material: LIME_STAINED_GLASS_PANE
+    name: "&a&l增加年份 ▶"
+    lore:
+      - "&7点击 +1 年"
+      - "&7Shift+点击 +10 年"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[YEAR_INCREASE]"
+
+  # 月份显示
+  month-display:
+    slot: 22
+    material: SUNFLOWER
+    name: "&6&l选择月份"
+    lore:
+      - "&7当前: &e%selected_month% 月"
+      - ""
+      - "&7使用下方按钮调整"
+
+  # 月份减少
+  month-decrease:
+    slot: 21
+    material: RED_STAINED_GLASS_PANE
+    name: "&c&l◀ 减少月份"
+    lore:
+      - "&7点击 -1 月"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[MONTH_DECREASE]"
+
+  # 月份增加
+  month-increase:
+    slot: 23
+    material: LIME_STAINED_GLASS_PANE
+    name: "&a&l增加月份 ▶"
+    lore:
+      - "&7点击 +1 月"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[MONTH_INCREASE]"
+
+  # 日期显示
+  day-display:
+    slot: 31
+    material: PAPER
+    name: "&6&l选择日期"
+    lore:
+      - "&7当前: &e%selected_day% 日"
+      - ""
+      - "&7使用下方按钮调整"
+
+  # 日期减少
+  day-decrease:
+    slot: 30
+    material: RED_STAINED_GLASS_PANE
+    name: "&c&l◀ 减少日期"
+    lore:
+      - "&7点击 -1 日"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[DAY_DECREASE]"
+
+  # 日期增加
+  day-increase:
+    slot: 32
+    material: LIME_STAINED_GLASS_PANE
+    name: "&a&l增加日期 ▶"
+    lore:
+      - "&7点击 +1 日"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[DAY_INCREASE]"
+
+  # 预览日期
+  preview:
+    slot: 40
+    material: CAKE
+    name: "&d&l预览生日日期"
+    lore:
+      - ""
+      - "&7你选择的生日:"
+      - "&e%selected_year%年%selected_month%月%selected_day%日"
+      - ""
+      - "&7年龄: &d%calculated_age% 岁"
+
+  # 确认按钮
+  confirm:
+    slot: 43
+    material: EMERALD_BLOCK
+    name: "&a&l✔ 确认设置"
+    lore:
+      - "&7点击确认设置生日"
+      - ""
+      - "&c注意: 设置后可能无法修改！"
+    actions:
+      - "[SOUND] ENTITY_PLAYER_LEVELUP"
+      - "[CONFIRM_BIRTHDAY]"
+
+  # 返回按钮
+  back:
+    slot: 45
+    material: ARROW
+    name: "&7&l← 返回"
+    lore:
+      - "&7点击返回主菜单"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] main-menu"
+
+  # 取消按钮
+  cancel:
+    slot: 53
+    material: BARRIER
+    name: "&c&l✖ 取消"
+    lore:
+      - "&7取消设置并返回"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] main-menu"

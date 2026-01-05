@@ -1,0 +1,108 @@
+# ================================
+# 帮助说明 GUI 配置
+# ================================
+
+title: "&a&l❓ 帮助说明"
+rows: 5
+
+fill:
+  border:
+    enabled: true
+    material: LIME_STAINED_GLASS_PANE
+    name: " "
+  empty:
+    enabled: true
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+
+items:
+  # 标题
+  title:
+    slot: 4
+    material: KNOWLEDGE_BOOK
+    name: "&6&l生日福利系统帮助"
+    lore:
+      - "&7了解如何使用生日福利系统"
+
+  # 如何设置生日
+  how-to-set:
+    slot: 19
+    material: CLOCK
+    name: "&e&l📅 如何设置生日"
+    lore:
+      - "&7步骤1: &f点击主菜单的「设置生日」"
+      - "&7步骤2: &f选择你的出生年月日"
+      - "&7步骤3: &f确认设置"
+      - ""
+      - "&c注意: 设置后可能无法修改"
+      - "&c请确保填写正确！"
+
+  # 如何领取福利
+  how-to-claim:
+    slot: 21
+    material: CAKE
+    name: "&d&l🎂 如何领取福利"
+    lore:
+      - "&7在你生日当天:"
+      - "&f1. 登录服务器"
+      - "&f2. 打开生日菜单 (/pbp)"
+      - "&f3. 点击「领取福利」按钮"
+      - ""
+      - "&7福利领取期限: &e%claim_window% 天"
+      - "&7每年只能领取一次"
+
+  # 福利内容
+  reward-content:
+    slot: 23
+    material: CHEST
+    name: "&b&l🎁 福利内容"
+    lore:
+      - "&7生日福利包含:"
+      - "&e• &f物品奖励"
+      - "&e• &f经验奖励"
+      - "&e• &f金钱奖励 (如启用)"
+      - "&e• &f专属头像框"
+      - "&e• &f庆祝烟花"
+      - "&e• &f全服生日祝福"
+      - ""
+      - "&7点击「福利预览」查看详情"
+
+  # 头像框说明
+  avatar-frame-info:
+    slot: 25
+    material: PAINTING
+    name: "&5&l🖼️ 头像框说明"
+    lore:
+      - "&7领取福利后获得专属头像框"
+      - ""
+      - "&7头像框会在聊天时显示"
+      - "&7有效期: &e%avatar_duration%"
+      - ""
+      - "&7过期后需等到下次生日"
+      - "&7再次领取福利来获得"
+
+  # 常见问题
+  faq:
+    slot: 31
+    material: PAPER
+    name: "&6&l📋 常见问题"
+    lore:
+      - "&eQ: 能修改生日吗？"
+      - "&7A: %modify_answer%"
+      - ""
+      - "&eQ: 错过领取时间怎么办？"
+      - "&7A: 只能等明年生日了"
+      - ""
+      - "&eQ: 福利可以多次领取吗？"
+      - "&7A: 每年只能领取一次"
+
+  # 返回按钮
+  back:
+    slot: 40
+    material: ARROW
+    name: "&7&l← 返回主菜单"
+    lore:
+      - "&7点击返回"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] main-menu"

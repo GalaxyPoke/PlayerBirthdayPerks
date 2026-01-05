@@ -1,0 +1,93 @@
+# ================================
+# 生日信息 GUI 配置
+# ================================
+
+title: "&b&l📋 生日信息"
+rows: 5
+
+fill:
+  border:
+    enabled: true
+    material: LIGHT_BLUE_STAINED_GLASS_PANE
+    name: " "
+  empty:
+    enabled: true
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+
+items:
+  # 玩家头像
+  player-head:
+    slot: 4
+    material: PLAYER_HEAD
+    skull-owner: "%player%"
+    name: "&6&l%player% 的生日信息"
+    lore:
+      - "&7查看你的生日相关信息"
+
+  # 生日日期
+  birthday-date:
+    slot: 20
+    material: CAKE
+    name: "&e&l🎂 生日日期"
+    lore:
+      - "&7你的生日: &e%birthday%"
+      - ""
+      - "&7年龄: &d%age% 岁"
+      - "&7星座: &b%zodiac%"
+
+  # 倒计时
+  countdown:
+    slot: 22
+    material: CLOCK
+    name: "&a&l⏰ 生日倒计时"
+    lore:
+      - "%birthday_countdown%"
+      - ""
+      - "&7下次生日: &e%next_birthday%"
+
+  # 福利状态
+  reward-status:
+    slot: 24
+    material: CHEST
+    name: "&d&l🎁 福利状态"
+    lore:
+      - "&7今年福利: %claim_status%"
+      - ""
+      - "&7历史领取次数: &e%total_claims% 次"
+      - "&7首次领取: &7%first_claim_date%"
+
+  # 头像框状态
+  avatar-frame:
+    slot: 30
+    material: PAINTING
+    name: "&5&l🖼️ 头像框状态"
+    lore:
+      - "&7状态: %avatar_frame_status%"
+      - "&7到期时间: %avatar_frame_expire%"
+
+  # 修改生日
+  modify-birthday:
+    slot: 32
+    material: WRITABLE_BOOK
+    name: "&6&l✏️ 修改生日"
+    lore:
+      - "%modify_status%"
+      - ""
+      - "&7今年剩余修改次数: &e%modify_remaining%"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] set-birthday"
+    # 仅当允许修改时显示此按钮
+    show-condition: "allow_modify"
+
+  # 返回按钮
+  back:
+    slot: 40
+    material: ARROW
+    name: "&7&l← 返回主菜单"
+    lore:
+      - "&7点击返回"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] main-menu"

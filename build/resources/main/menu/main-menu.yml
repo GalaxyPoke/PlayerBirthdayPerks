@@ -1,0 +1,132 @@
+# ================================
+# 主菜单 GUI 配置
+# ================================
+
+# 菜单标题 (支持颜色代码)
+title: "&6&l🎂 生日福利系统"
+
+# 菜单行数 (1-6)
+rows: 5
+
+# 填充物品
+fill:
+  # 边框填充
+  border:
+    enabled: true
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+  # 空位填充
+  empty:
+    enabled: true
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+
+# 物品配置
+items:
+  # 玩家头像信息
+  player-info:
+    slot: 13
+    material: PLAYER_HEAD
+    # 使用 %player_head% 显示玩家头像
+    skull-owner: "%player%"
+    name: "&6&l%player%"
+    lore:
+      - "&7欢迎使用生日福利系统！"
+      - ""
+      - "&7你的生日: &e%birthday%"
+      - "&7头像框: %avatar_frame_status%"
+
+  # 设置生日按钮
+  set-birthday:
+    slot: 20
+    material: CLOCK
+    name: "&e&l📅 设置生日"
+    lore:
+      - "&7点击设置你的生日日期"
+      - ""
+      - "&7当前: %birthday%"
+      - ""
+      - "&a▶ 点击设置"
+    # 点击动作
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] set-birthday"
+
+  # 查看信息按钮
+  birthday-info:
+    slot: 22
+    material: BOOK
+    name: "&b&l📋 生日信息"
+    lore:
+      - "&7查看你的生日详情"
+      - ""
+      - "%birthday_status%"
+      - "%claim_status%"
+      - ""
+      - "&a▶ 点击查看"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] birthday-info"
+
+  # 领取福利按钮
+  claim-reward:
+    slot: 24
+    # 条件物品 - 可领取时显示
+    conditions:
+      can-claim:
+        material: CAKE
+        name: "&6&l🎂 领取福利"
+        lore:
+          - "&a&l可以领取！"
+          - ""
+          - "&7点击领取你的生日福利"
+          - ""
+          - "&e▶ 点击领取"
+        actions:
+          - "[SOUND] UI_BUTTON_CLICK"
+          - "[CLAIM]"
+      # 不可领取时显示
+      cannot-claim:
+        material: GRAY_DYE
+        name: "&7&l🎂 领取福利"
+        lore:
+          - "%cannot_claim_reason%"
+          - ""
+          - "&7暂时无法领取"
+
+  # 福利预览按钮
+  reward-preview:
+    slot: 30
+    material: ENDER_CHEST
+    name: "&d&l🎁 福利预览"
+    lore:
+      - "&7查看生日福利内容"
+      - ""
+      - "&a▶ 点击查看"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] reward-preview"
+
+  # 帮助按钮
+  help:
+    slot: 32
+    material: KNOWLEDGE_BOOK
+    name: "&a&l❓ 帮助说明"
+    lore:
+      - "&7了解生日福利系统"
+      - ""
+      - "&a▶ 点击查看"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[OPEN] help"
+
+  # 关闭按钮
+  close:
+    slot: 40
+    material: BARRIER
+    name: "&c&l✖ 关闭菜单"
+    lore:
+      - "&7点击关闭菜单"
+    actions:
+      - "[SOUND] UI_BUTTON_CLICK"
+      - "[CLOSE]"
