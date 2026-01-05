@@ -1,0 +1,55 @@
+# ================================
+# PlayerBirthdayPerks 配置文件
+# 仿王者荣耀生日福利系统
+# ================================
+
+# 数据库配置
+database:
+  # 数据库类型: sqlite 或 mysql
+  type: sqlite
+  
+  # SQLite配置 (当type为sqlite时使用)
+  sqlite:
+    file: data.db
+  
+  # MySQL配置 (当type为mysql时使用)
+  mysql:
+    host: localhost
+    port: 3306
+    database: birthday_perks
+    username: root
+    password: password
+    # 连接池配置
+    pool:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+# 生日设置
+birthday:
+  # 是否允许修改生日 (false则只能设置一次)
+  allow-modify: false
+  # 每年允许修改次数 (-1为无限制, 仅当allow-modify为true时有效)
+  modify-limit-per-year: 1
+  # 生日福利领取时间窗口 (天数, 过期后无法领取当年福利)
+  claim-window-days: 7
+
+# 福利配置
+rewards:
+  # 是否启用福利系统
+  enabled: true
+  # 生日当天登录提醒
+  login-notification: true
+  # 详细奖励配置请查看 menu/rewards.yml
+
+# 缓存配置
+cache:
+  # 玩家数据缓存过期时间 (分钟)
+  expire-minutes: 30
+  # 最大缓存数量
+  max-size: 1000
+
+# 调试模式
+debug: false

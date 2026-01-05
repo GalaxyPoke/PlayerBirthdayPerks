@@ -1,0 +1,41 @@
+name: PlayerBirthdayPerks
+version: ${version}
+main: com.birthdayperks.PlayerBirthdayPerks
+api-version: '1.21'
+author: BirthdayPerks
+description: 仿王者荣耀生日福利系统插件
+
+commands:
+  pbp:
+    description: 生日福利系统主命令
+    usage: /pbp <set|info|claim|admin>
+    aliases: [birthday, bd]
+
+permissions:
+  birthday.use:
+    description: 使用生日系统基础命令
+    default: true
+  birthday.set:
+    description: 设置自己的生日
+    default: true
+  birthday.info:
+    description: 查看自己的生日信息
+    default: true
+  birthday.claim:
+    description: 领取生日福利
+    default: true
+  birthday.admin:
+    description: 管理员权限
+    default: op
+  birthday.admin.reload:
+    description: 重载配置
+    default: op
+  birthday.admin.reset:
+    description: 重置玩家生日数据
+    default: op
+  birthday.admin.give:
+    description: 手动给予玩家生日福利
+    default: op
+  birthday.admin.check:
+    description: 查看其他玩家生日信息
+    default: op
